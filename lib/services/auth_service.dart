@@ -5,7 +5,6 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Sign Up Method
   Future<bool> signUpUser(
       String name, String email, String mobile, String password) async {
     try {
@@ -14,7 +13,6 @@ class AuthService {
         password: password,
       );
 
-      // Store additional user details in Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'name': name,
         'email': email,
@@ -28,7 +26,6 @@ class AuthService {
     }
   }
 
-  // Login Method
   Future<bool> loginUser(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
@@ -39,7 +36,6 @@ class AuthService {
     }
   }
 
-  // Logout Method
   Future<void> logoutUser() async {
     await _auth.signOut();
   }
